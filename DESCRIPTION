@@ -1,0 +1,26 @@
+Package: covmodUK
+Type: Package
+Title: Package for reproducing result of regional UK demand covariance modelling
+Version: 1.3.4
+Date: 2022-07-01
+Author: Vincenzo Gioia
+Maintainer: Vincenzo Gioia <gioia.vincenzo@spes.uniud.it>
+Description: Package for reproducing result of regional UK demand covariance modelling
+License: GPL (>=2)
+Depends:
+    R (>= 3.5.0),
+    mgcv (>= 1.8-40),
+    parallel, 
+    scoringRules, 
+    mvnfast
+Imports:
+    dplyr, 
+    ggplot2, 
+    Matrix,
+    fields, 
+    stringr, 
+    Rcpp(>= 1.0.6), 
+    stats, 
+    copula
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 7.2.2
