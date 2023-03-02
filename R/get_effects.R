@@ -8,7 +8,7 @@
 #' @details This function is meant for internal use only.
 #' @export
 #' 
-get_effects <- function(version, allNs, ord_idx, diagonal){
+get_effects <- function(version, allNs, diagonal){
   
   G <- mat2vec(14)
   
@@ -18,10 +18,10 @@ get_effects <- function(version, allNs, ord_idx, diagonal){
   if( grepl("w", version, fixed = TRUE) ){
     wind_eff <- sapply(1:14,
                        function(ii) paste0("s(WindSpd100_weighted.mean_cell_",
-                                           allNs[ord_idx][ii], ", by = EMBEDDED_WIND_CAPACITY, k = 5, sp = 0)" ))
+                                           allNs[ii], ", by = EMBEDDED_WIND_CAPACITY, k = 5, sp = 0)" ))
     solar_eff <- sapply(1:14,
                         function(ii) paste0("s(SSRD_mean_2_Cap_",
-                                            allNs[ord_idx][ii], ", k = 5, sp = 0)" ))
+                                            allNs[ii], ", k = 5, sp = 0)" ))
     effects <- c(effects, wind_eff, solar_eff)
     tmp <- rep(lapply(1:14, function(ii) G[ii, 1:ii]), 2)
     names(tmp) <- c(wind_eff, solar_eff)
@@ -31,10 +31,10 @@ get_effects <- function(version, allNs, ord_idx, diagonal){
   if( grepl("r", version, fixed = TRUE) ){
     temp_eff <- sapply(1:14,
                        function(ii) paste0("s(x2T_weighted.mean_p_max_point_",
-                                           allNs[ord_idx][ii], ",  k = 5, sp = 0)" ))
+                                           allNs[ii], ",  k = 5, sp = 0)" ))
     prec_eff <- sapply(1:14,
                        function(ii) paste0("s(TP_weighted.mean_cell_",
-                                           allNs[ord_idx][ii], ",  k = 5, sp = 0)" ))
+                                           allNs[ii], ",  k = 5, sp = 0)" ))
     effects <- c(effects, temp_eff, prec_eff, "s(n2ex, k = 5, sp = 0)") 
     tmp <- rep(lapply(1:14, function(ii) G[ii, 1:ii]), 2)
     names(tmp) <- c(temp_eff, prec_eff)

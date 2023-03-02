@@ -7,7 +7,6 @@
 boosting_step(
   data,
   data_v,
-  ord_idx,
   effects,
   constraints,
   nstep,
@@ -15,7 +14,6 @@ boosting_step(
   diagonal,
   ncores,
   ncv = NULL,
-  eff_seq = NULL,
   verbose = FALSE
 )
 }

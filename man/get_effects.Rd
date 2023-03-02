@@ -4,7 +4,7 @@
 \alias{get_effects}
 \title{Get effects and constraints}
 \usage{
-get_effects(version, allNs, ord_idx, diagonal)
+get_effects(version, allNs, diagonal)
 }
 \arguments{
 \item{theta}{B}
