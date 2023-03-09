@@ -13,7 +13,7 @@ validation_step <- function(res, data, start, nstop, ncv, ncores){
   mean_formula_int <- list(res_P ~ 1,res_N ~ 1,res_F ~ 1,res_M ~ 1,res_G ~ 1,res_D ~ 1,res_K ~ 1,
                            res_E ~ 1,res_B ~ 1,res_A ~ 1,res_C ~ 1,res_J ~ 1,res_H ~ 1,res_L ~ 1)
   
-  y_var_nam <- paste0("res_", sapply(mean_formula_int, 
+  y_var_nam <- paste0("res", sapply(mean_formula_int, 
                                         function(form) {
                                           str <- as.character(form[2])
                                           substr(str,nchar(str)-1,nchar(str))

@@ -26,7 +26,7 @@ get_shash_norm_resid <- function(x, d, ncores){
       y_nam <- as.character(o$model$formula[[1]][2])
       y_nam <- substr(y_nam,nchar(y_nam)-1,nchar(y_nam))
       ytrain <- o$model$y
-      ytest <- test[ , paste0("res_", y_nam)]
+      ytest <- test[ , paste0("res", y_nam)]
       ztrain <- qnorm(cdf(ytrain, o$model$fitted.values, logp = TRUE), log.p = TRUE)
       ztest <- qnorm(cdf(ytest, o$eta_hat, logp = TRUE), log.p = TRUE)
       

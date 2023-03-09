@@ -56,7 +56,7 @@ get_scores_copula <- function(x, cop_param, d, nsim, ncores, A){
       y_nam <- as.character(o$model$formula[[1]][2])
       y_nam <- substr(y_nam,nchar(y_nam)-1,nchar(y_nam))
       ytrain <- o$model$y
-      ytest <- test[ , paste0("res_", y_nam)]
+      ytest <- test[ , paste0("res", y_nam)]
       ztrain <- cdf(ytrain, o$model$fitted.values, logp = TRUE)
       ztest <- cdf(ytest, o$eta_hat, logp = TRUE)
       

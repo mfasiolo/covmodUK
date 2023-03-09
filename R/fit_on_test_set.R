@@ -14,7 +14,7 @@ fit_on_test_set <- function(data_boost, nstop, data, start, ncv, ncores){
                            res_E ~ 1,res_B ~ 1,res_A ~ 1,res_C ~ 1,res_J ~ 1,res_H ~ 1,res_L ~ 1)
   d <- length(mean_formula_int)
   
-  y_var_nam <- paste0("res_", sapply(mean_formula_int, 
+  y_var_nam <- paste0("res", sapply(mean_formula_int, 
                                         function(form) {
                                           str <- as.character(form[2])
                                           substr(str,nchar(str)-1,nchar(str))

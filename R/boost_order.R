@@ -56,6 +56,13 @@ boost_order <- function(y, X,
   idx <- list()
   ll_v <- list()
   
+  cl <- makePSOCKcluster(ncores)
+  setDefaultCluster(cl)
+  clusterExport(NULL, c("X", "neta", "y", "rate"), envir = environment())
+  clusterEvalQ(NULL, {
+    library(covmodUK)
+  })
+  
   for(ii in 1:nstep){
     d1_mcd(eta, y, score_init)
     
@@ -65,7 +72,9 @@ boost_order <- function(y, X,
       names(constraints) <- effects
     }
     
-    dll[[ii]] <- mclapply(effects, function(eff){
+    clusterExport(NULL, c("effects", "constraints", "score_init"), envir = environment())
+    
+    dll[[ii]] <- parLapply(NULL, effects, function(eff){
       delta <- rep(0, neta)
       index <- constraints[[eff]]
       if( is.null(index) ) index <- 1:neta
@@ -92,7 +101,7 @@ boost_order <- function(y, X,
         }
       }
       return(delta)
-    }, mc.cores = ncores)
+    })
     
     dll[[ii]] <- do.call("cbind", dll[[ii]])
     
@@ -116,6 +125,9 @@ boost_order <- function(y, X,
     }
     if(max(dll[[ii]]) < 0) break
   }
+  
+  stopCluster(NULL)
+  rm(cl)
   
   return(list(dll = dll, idx = idx, d = d, nstep = nstep, effects = effects, ll_v = ll_v, eta = eta, eta_v = eta_v))
 }
