@@ -1,7 +1,8 @@
 #' Family definition (internal use)
 #'
-#' @description  ...
+#' @description  Family function
 #' @param d dimension of the outcome
+#' @param nb number of chunkings
 #'
 #' @return family
 #' @export
@@ -10,15 +11,62 @@
 #'
 #' @examples
 
-mvn_mcd <- function(d = 2){
+mvn_mcd <- function(d = 2, nb = 1){
   #Multivariate model with covariance modelling via modified Cholesky decomposition
-  if(d < 2) stop("mvn_mcd requires to or more dimensional data")
+  if ( d < 2 ) stop("mvn_scm requires to or more dimensional data")
+  if ( nb < 1 ) stop("the number of observations' blocks must be greater than 0")
+
   no_eta <- d + d *(d + 1)/2
+  param <- 1 #set to MCD parametrisation
+
 
   stats <- list()
   for (j in 1:no_eta) stats[[j]] <- make.link("identity")
 
   validmu <- function(mu) all(is.finite(mu))
+
+
+  # z, w, G, t: auxiliary indices used in the derivative's computation (all of them used in the mcd and only z, w in the logm)
+  z <- w <- t <- rep(0, (d * (d - 1)/2))
+  Gm <- matrix(0, d - 1, d - 1)
+  mode(Gm) <- mode(z) <- mode(w) <- mode(t) <- "integer"
+  idx_zwGt(d, z, w, Gm, t)
+
+  # indices of elements different from zero in the hessian matrix
+  idx_jk <- idxHess_no0(no_eta, z, w, param)
+
+  if ( param == 1 ) { # See the computational paper
+    nHel <- d * (d^2 + 15 * d + 2)/6
+    if ( d > 2 ) nHel <- nHel + d * (d - 1) * (d - 2)/3
+  }
+
+  # Quantities defined in the environment:
+  # l1 and l1_l: matrix of the 1st derivatives
+  getL1 <- function() get(".l1")   # only the first nb - 1 blocks of observations
+  putL1 <- function(.l1) assign(".l1", .l1, envir = environment(sys.function()))
+  getL1_l <- function() get(".l1_l")   # Last block of observations
+  putL1_l <- function(.l1_l) assign(".l1_l", .l1_l, envir = environment(sys.function()))
+
+  # l2 and l2_l: matrices of the 2nd derivatives excluding the intercepts' blocks
+  getL2 <- function() get(".l2") # only the first nb - 1 blocks of observations
+  putL2 <- function(.l2) assign(".l2", .l2, envir = environment(sys.function()))
+  getL2_l <- function() get(".l2_l")   # Last block of observations
+  putL2_l <- function(.l2_l) assign(".l2_l", .l2_l, envir = environment(sys.function()))
+
+  # l2_v and l2_v_l: vectors of the (cumulated) second derivatives considering only the  intercepts' blocks
+  getL2_v <- function() get(".l2_v")  # First nb - 1 blocks of observations
+  putL2_v <- function(.l2_v) assign(".l2_v", .l2_v, envir = environment(sys.function()))
+  getL2_v_l <- function() get(".l2_v_l")   # Last block of observations
+  putL2_v_l <- function(.l2_v_l) assign(".l2_v_l", .l2_v_l, envir = environment(sys.function()))
+
+  # Indices for observations' blocks
+  getidx_b <- function() get(".idx_b")
+  putidx_b <- function(.idx_b) assign(".idx_b", .idx_b, envir = environment(sys.function()))
+
+  # List of auxiliary indices for hessian blocks  (intercept/partial/full taking into account the sparsity if it exists)
+  getidx_aux <- function() get(".idx_aux")
+  putidx_aux <- function(.idx_aux) assign(".idx_aux", .idx_aux, envir = environment(sys.function()))
+
 
   assign(".cflag", TRUE, envir = environment())
   getcflag <- function() get(".cflag")
@@ -29,12 +77,14 @@ mvn_mcd <- function(d = 2){
   getd <- function() get(".d")
   putd <- function(.d) assign(".d", .d, envir = environment(sys.function()))
 
-  getL2 <- function() get(".l2")
-  putL2 <- function(.l2) assign(".l2", .l2, envir = environment(sys.function()))
-
   assign(".no_eta", no_eta, envir = environment())
   getno_eta <- function() get(".no_eta")
   putno_eta <- function(.no_eta) assign(".no_eta", .no_eta, envir = environment(sys.function()))
+
+  # Type of parametrisation
+  assign(".param", param, envir = environment())
+  getparam <- function() get(".param")
+  putparam <- function(.param) assign(".param", .param, envir = environment(sys.function()))
 
   initialize <- expression({
     my_init_fun <- function(y, nobs, E, x, family, offset){
@@ -135,50 +185,126 @@ mvn_mcd <- function(d = 2){
     discrete <- is.list(X)
     jj <- attr(X,"lpi") ## extract linear predictor index
 
+    p <- ncol(X)
     n <- nrow(y)
-    eta <- matrix(0, n, no_eta)
+    eta <- matrix(0, n, no_eta) #linear predictor matrix
 
-    l2 <- try(getL2(), TRUE)
-    if("try-error" %in% class(l2)){
-       l2 <-  matrix(0, n, no_eta * (no_eta + 1)/2) #initialization
-       putL2(l2)
+    # number of observations in each block (nb - 1 blocks with the same observations; the last could differ)
+    nlast <- n %% nb
+    nset <- n %/% nb
+
+    # Memory initialization of several quantities:
+    l1 <- try(getL1(), TRUE) #First derivatives matrix (first nb - 1 blocks of observations)
+    if ( "try-error" %in% class(l1) ) {
+      l1 <- matrix(0, nset, no_eta)
+      putL1(l1)
     }
+
+    idx_aux <- try(getidx_aux(), TRUE) #list of auxiliary indices for hessian blocks (intercept/partial/full taking into account the sparsity if it exists)
+    if ( "try-error" %in% class(idx_aux) ) {
+      idx_aux <- aux_idx(jj, idx_jk, no_eta)
+      putidx_aux(idx_aux)
+    }
+
+    if(nb > 1){
+      l2 <- try(getL2(), TRUE)  #Second derivatives matrix (first nb - 1 blocks of observations and Hessian blocks not involving the intercepts)
+      if ( "try-error" %in% class(l2) ) {
+        l2 <- matrix(0, nset, nHel - idx_aux$llls)
+        putL2(l2)
+      }
+    } else { # Such trick allows to pass the matrix l2 in the case nb = 1, avoiding cpp issues
+      l2 <- try(getL2(), TRUE)  #Second derivatives matrix (first nb - 1 blocks of observations and Hessian blocks not involving the intercepts)
+      if ( "try-error" %in% class(l2) ) {
+        l2 <- matrix(0, 1, 1)
+        putL2(l2)
+      }
+    }
+
+    l2_v <- try(getL2_v(), TRUE) #Second derivatives vector (first nb - 1 blocks of observations and Hessian blocks involving the intercepts)
+    if ( "try-error" %in% class(l2_v) ) {
+      l2_v <- rep(0, idx_aux$llls)
+      putL2_v(l2_v)
+    }
+
+    l2_v_l <- try(getL2_v_l(), TRUE)  #Second derivatives vector (last blocks of observations and Hessian blocks not involving the intercepts)
+    if ( "try-error" %in% class(l2_v_l) ) {
+      l2_v_l <- rep(0, idx_aux$llls)
+      putL2_v_l(l2_v_l)
+    }
+
+    # Create the last block quantities
+    if ( nlast == 0 ) {
+      nobs_b <- nset
+      idx_b_seq <- cumsum(rep(nset, nb - 1)) - 1
+    } else {
+      nobs_b <- nlast
+      idx_b_seq <- cumsum(rep(nset, nb)) - 1
+    }
+
+    l1_l <- try(getL1_l(), TRUE)  #First derivatives matrix (Last block of observations)
+    if ( "try-error" %in% class(l1_l) ) {
+      l1_l <- matrix(0, nobs_b,  no_eta)
+      putL1_l(l1_l)
+    }
+
+    l2_l <- try(getL2_l(), TRUE) #Second derivatives matrix (Last block of observations)
+    if("try-error" %in% class(l2_l)){
+      l2_l <- matrix(0, nobs_b, nHel - idx_aux$llls)
+      putL2_l(l2_l)
+    }
+
+    idx_b <- try(getidx_b(), TRUE)  # Indices of observations' blocks
+    if("try-error" %in% class(idx_b)){
+      idx_b <- c(-1, idx_b_seq, n - 1)
+      putidx_b(idx_b)
+    }
+
+
 
     for(k in 1 : no_eta){
       eta[,k] <- if (discrete) Xbd(X$Xd,coef,k=X$kd,ks=X$ks,ts=X$ts,dt=X$dt,v=X$v,qc=X$qc,drop=X$drop,lt=X$lpid[[k]])
       else X[,jj[[k]],drop=FALSE]%*%coef[jj[[k]]]
     }
 
-    l1 <- matrix(0, n, no_eta) #initialization
+    #l1 <- matrix(0, n, no_eta) #initialization
     ## log-likelihood: eta is a matrix n*w and y is a matrix n*d
 
     #l <- ll_mcd(eta, y[,1:d]) - 0.5 * n * d * log(2 * pi)
     l <- ll_mcd(eta, y) - 0.5 * n * d * log(2 * pi)
 
 
-    if (deriv>0) {
+    #if (deriv>0) {
       ## the first derivative: eta is a matrix n*w, y is a matrix n*d,
       ##                         l1 is a matrix n*w
       #d1_mcd(eta, y[,1:d], l1)
-      d1_mcd(eta, y, l1)
+      #d1_mcd(eta, y, l1)
 
       ## the second derivatives
       #l2 <- matrix(0, n, no_eta * (no_eta + 1)/2) #initialization
       #d2_mcd(eta,y[,1:d], l2)
-      d2_mcd(eta,y, l2)
+      #d2_mcd(eta,y, l2)
 
-    }
+    #}
 
     l3 <- 0 ## defaults
 
-    if (deriv) {
-      i2 <- family$tri$i2
-      i3 <- family$tri$i3
 
-      ## get the gradient and Hessian...
-      ret <- gamlss.gH(X, jj, l1, l2, i2, l3 = l3, i3 = i3,
-                       d1b = d1b, deriv = deriv - 1, fh = fh, D = D)
+    # if (deriv) {
+    #   i2 <- family$tri$i2
+    #   i3 <- family$tri$i3
+    #
+    #   ## get the gradient and Hessian...
+    #   ret <- gamlss.gH(X, jj, l1, l2, i2, l3 = l3, i3 = i3,
+    #                    d1b = d1b, deriv = deriv - 1, fh = fh, D = D)
+    # } else ret <- list()
+
+    if ( deriv ) {
+      ret <- gamlss.gH_mcd(X, jj, eta, y, w, z, t, Gm,
+                                      l1, l1_l, l2, l2_v, l2_l, l2_v_l,
+                                      idx_b, idx_aux,
+                                      d1b = d1b, deriv = deriv - 1, fh = fh, D = D)
     } else ret <- list()
+
     ret$l <- l
     ret
   } ## end ll mvn_mcd
@@ -259,7 +385,15 @@ mvn_mcd <- function(d = 2){
                  getd = getd, putd = putd,
                  getno_eta = getno_eta, putno_eta = putno_eta,
                  getcflag = getcflag, put_cflag = putcflag,
+                 getL1 = getL1, putL1 = putL1,
+                 getL1_l = getL1_l, putL1_l = putL1_l,
                  getL2 = getL2, putL2 = putL2,
+                 getL2_v = getL2_v, putL2_v = putL2_v,
+                 getL2_l = getL2_l, putL2_l = putL2_l,
+                 getL2_v_l = getL2_v_l, putL2_v_l = putL2_v_l,
+                 getidx_b = getidx_b, putidx_b = putidx_b,
+                 getidx_aux =  getidx_aux, putidx_aux =  putidx_aux,
+                 getparam =  getparam, putparam =  putparam,
                  #postproc=postproc, ##to do
                  residuals=residuals,
                  predict = predict,

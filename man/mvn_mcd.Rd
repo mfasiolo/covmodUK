@@ -4,14 +4,16 @@
 \alias{mvn_mcd}
 \title{Family definition (internal use)}
 \usage{
-mvn_mcd(d = 2)
+mvn_mcd(d = 2, nb = 1)
 }
 \arguments{
 \item{d}{dimension of the outcome}
+
+\item{nb}{number of chunkings}
 }
 \value{
 family
 }
 \description{
-...
+Family function
 }

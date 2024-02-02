@@ -4,7 +4,7 @@
 \alias{get_scores_copula}
 \title{Get performance scores}
 \usage{
-get_scores_copula(x, cop_param, d, nsim, ncores, A)
+get_scores_copula(fit_lss, nsim, ncores, A, indep = FALSE)
 }
 \arguments{
 \item{theta}{B}

@@ -15,6 +15,7 @@ boost_order(
   rate,
   diagonal,
   ncores,
+  old_fit = NULL,
   eff_seq = NULL,
   verbose = FALSE
 )

@@ -1,5 +1,5 @@
 ##########################
-#' Get normalized residuals from shash model
+#' Get normalized residuals from GAMLSS model
 #' 
 #' @description A
 #'  
@@ -9,18 +9,24 @@
 #' @importFrom Matrix rankMatrix
 #' @details This function is meant for internal use only.
 #' 
-get_shash_norm_resid <- function(x, d, ncores){
+get_norm_resid <- function(x, d){
   
   out <- lapply(x, function(dat){
     test <- dat$test
     train <- dat$train 
-    modpred <- dat[1:14]
+    modpred <- dat[1:d]
     
     fam_nam <- modpred[[1]]$model$family$family
-      my_pdf <- shash_pdf
-      cdf <- modpred[[1]]$model$family$cdf
+    cdf <- modpred[[1]]$model$family$cdf
+    if(is.null(cdf)){
+      if(fam_nam == "gaulss"){
+        cdf <- function(q, mu, wt, scale, logp = FALSE) {
+          pnorm(q, mean = mu[ , 1], sd = 1/mu[ , 2], log.p = logp)
+        }
+      }
+    }
  
-    # For each marginal: get z by evaluating shash CDF and inverting Gaussian CDF
+    # For each marginal: get z by evaluating model CDF and inverting Gaussian CDF
     my_list <- lapply(modpred, function(o){
       
       y_nam <- as.character(o$model$formula[[1]][2])
@@ -38,9 +44,7 @@ get_shash_norm_resid <- function(x, d, ncores){
   
   Z_train <- do.call("cbind", lapply(out[[1]], function(x) x$ztrain))
   Z_test <- do.call("rbind", lapply(out, function(x) do.call("cbind", lapply(x, function(x1) x1$ztest))))
-  
-  #out <- rbind(out[[1]]$ztrain, do.call("rbind", lapply(out, "[[", "ztest"))) 
-  
+
   Z <- rbind(Z_train, Z_test)
   
   return(Z)

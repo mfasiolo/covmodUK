@@ -14,7 +14,7 @@ initialise_data_for_gams <- function(dat, d){
                     dow_RpH_EW = dat[["A"]]$dow_RpH,
                     dow_RpH_Sc= dat[["P"]]$dow_RpH,
                     clock_hour = dat[["A"]]$clock_hour,
-                    Date = dat[["A"]]$doy,
+                    Date = dat[["A"]]$Date,
                     doy = dat[["A"]]$doy,
                     year = dat[["A"]]$year,
                     moy = dat[["A"]]$moy,

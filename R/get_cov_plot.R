@@ -23,7 +23,7 @@ get_cov_plot <- function(indexes, CORRS, DIAG, A){
     yp <- sin(2*pi*(1:nel/nel))
     
     if(nrow(A) == 14){
-      xp <- c(0, 0, 0.2, 0.2, -0.1, -0.2, -0.2, 0, 0.2, 0.35, 0.2, 0.35, 0, -0.2)
+      xp <- c(0, 0, 0.2, 0.2, -0.1, -0.2, -0.2, 0, 0.2, 0.35, 0.2, 0.35, 0.05, -0.2)
       yp <- c(0.9, 0.7, 0.6, 0.3, 0.5, 0.1, -0.1, 0, 0.05, -0.1, -0.3, -0.45, -0.46, -0.5)
     } else {
       xp <- c(0.2, 0.21, 0.25, 0.3, 0.17)
@@ -48,22 +48,34 @@ get_cov_plot <- function(indexes, CORRS, DIAG, A){
     if(nrow(A)==14){
       stdleg <- 1
       corleg <- 2
+      cor_grid <- c(0.5, 0.75, 0.9, 0.95)
+      cor_limits <- c(0.25, 1)
     } else {
-      stdleg <- 2
-      corleg <- Inf
+      stdleg <- 1
+      corleg <- 3
+      cor_grid <- c(0.4, 0.5, 0.6, 0.7)
+      cor_limits <- c(0.25, 1)
     }
+    dat_cor$alphas <- 1 - 0.9 * (dat_cor$cor < 0.25)
     library(ggplot2)
     pl <- ggplot(data = dat, mapping = aes(x = x, y = y)) +
       geom_segment(data = dat_cor, mapping = aes(x = x, y = y, xend = xend, yend = yend,
-                                                 colour = cor, alpha = abs(cor)),
+                                                 colour = cor, alpha = alphas),
                    inherit.aes = FALSE, size = 2) +
       geom_point(mapping = aes(x = x, y = y, fill = std),
-                 size = if(nrow(A)==14){20}else{20}, shape = 21) +
-      geom_text(aes(label = lab), size = if(nrow(A)==14){10}else{8}, colour = "white") +
-      scale_fill_viridis_c(option = "magma", end = 0.8, name = "Std. dev.", limits = std_lim,
+                 size = if(nrow(A)==14){25}else{25}, shape = 21) +
+      geom_text(aes(label = lab), size = if(nrow(A)==14){12}else{10}, colour = "white") +
+      scale_fill_viridis_c(option = "magma", end = 0.8, name = "Std. devia.", limits = std_lim,
                            guide=if(count==stdleg){ guide_colorbar() } else { "none" }) +
-      scale_colour_gradient(low="darkblue", high="red", limits = c(0, 1), name = "Correlation",
-                            guide=if(count==corleg){ guide_colorbar() } else { "none" }) +
+      #scale_colour_manual(values=cc, guide=guide_colorbar()) +
+      scale_colour_binned(type = "viridis",
+                          breaks = cor_grid,
+                          limits = cor_limits,
+                          guide = if(count==corleg){ guide_coloursteps(even.steps = TRUE,
+                                                     show.limits = TRUE)} else { "none" }, 
+                          name = "Correlation") +
+      #scale_colour_gradient(low="darkblue", high="red", limits = c(0, 1), name = "Correlation",
+      #                      guide=guide_colorbar() ) +
       #scale_colour_viridis_c(option = "magma", end = 0.9, name = "Corr") +
       scale_alpha_continuous(limits = c(0, 1),guide="none") +
       #scale_alpha_continuous(range = c(0, 1))  +
@@ -74,11 +86,14 @@ get_cov_plot <- function(indexes, CORRS, DIAG, A){
             axis.text.y=element_blank(),axis.ticks=element_blank(),
             axis.title.x=element_blank(),axis.title.y=element_blank(),
             panel.border = element_blank(),
-            legend.position = "bottom")
+            legend.position = "bottom") + 
+      theme(legend.text = element_text(size=30), 
+            legend.title = element_text(size=40),
+            legend.key.size = unit(3, "cm"))
     if(nrow(A)!=14){
       pl <- pl + xlim(0.15, 0.31) + ylim(-0.3, 0.33)
-   #   xp <- c(0.2, 0.21, 0.25, 0.3, 0.17)
-    #  yp <- c(0.3, 0.13, 0, -0.1, -0.2)
+      #   xp <- c(0.2, 0.21, 0.25, 0.3, 0.17)
+      #  yp <- c(0.3, 0.13, 0, -0.1, -0.2)
     }
     plots[[count]] <- pl
     count <- count + 1

@@ -2,7 +2,6 @@
 #' @description This function return the formula for the covariance model, namely the formula for the elements of the modified cholesky decomposition
 #'
 #' @param data_boost The gradient boosting object
-#' @param res The summary of the gradient boosting
 #' @param stop_elem The number of elements considered for modelling purposes
 #'
 #' @return The formula (a list) for the covariance model
@@ -11,7 +10,8 @@
 #'
 #' @examples
 #'
-formula_mcd <- function(data_boost, res, stop_elem){
+formula_mcd <- function(data_boost, stop_elem){
+  res <- boost_eff(data_boost)
   Theta_formula <- formula_mcd_int(data_boost$d)
   name_pred  = unlist(data_boost$effects)
   data_boost_unique <- unique(data_boost$idx)

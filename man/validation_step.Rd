@@ -4,7 +4,7 @@
 \alias{validation_step}
 \title{Validation for optimal number of effects}
 \usage{
-validation_step(res, data, start, nstop, ncv, ncores)
+validation_step(data_boost, dat, start, nstop, ncv, ncores)
 }
 \arguments{
 \item{theta}{B}

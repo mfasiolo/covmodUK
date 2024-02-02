@@ -13,6 +13,42 @@ d1_mcd <- function(eta, y, res) {
     .Call(`_covmodUK_d1_mcd`, eta, y, res)
 }
 
+#' Score mcd for fitting
+#'
+#' @param X model matrix
+#' @param eta Linear predictor (n x (d + dx(d+1)/2) matrix).
+#' @param y Outcome (n x d matrix).
+#' @param jj list of indices to access X elements (by lpi)
+#' @param K length ...
+#' @param lb Score beta
+#' @param l1 Memory initialization (first B-1 blocks)
+#' @param l1_l Memory initialization (Last block)
+#' @param ig indices for chunking
+#' @param z indices vector
+#' @param w indices vector
+#' @param G indices matrix
+#' @export
+NULL
+
+d1_beta <- function(X, eta, y, jj, K, lb, l1, l1_l, ig, z, w, Gm) {
+    .Call(`_covmodUK_d1_beta`, X, eta, y, jj, K, lb, l1, l1_l, ig, z, w, Gm)
+}
+
+#' Score mcd for fitting
+#'
+#' @param eta Linear predictor (n x (d + dx(d+1)/2) matrix).
+#' @param y Outcome (n x d matrix).
+#' @param d1l Memory initialization
+#' @param z indices vector
+#' @param w indices vector
+#' @param Gm indices matrix
+#' @export
+NULL
+
+d1_mcd_eta <- function(eta, y, d1l, z, w, Gm) {
+    .Call(`_covmodUK_d1_mcd_eta`, eta, y, d1l, z, w, Gm)
+}
+
 #' Hessian mcd
 #'
 #' @param eta Linear predictor (n x (d + dx(d+1)/2) matrix).
@@ -23,6 +59,72 @@ NULL
 
 d2_mcd <- function(eta, y, res) {
     .Call(`_covmodUK_d2_mcd`, eta, y, res)
+}
+
+#' Hessian mcd for fitting
+#'
+#' @param X model matrix
+#' @param eta Linear predictor (n x (d + dx(d+1)/2) matrix).
+#' @param y Outcome (n x d matrix).
+#' @param jj list of indices to access X elements (by lpi)
+#' @param K length ...
+#' @param lbb Hessian beta
+#' @param l2 Memory initialization (first B-1 blocks)
+#' @param l2_v Memory initialization (Last block)
+#' @param l2_l Memory initialization (first B-1 blocks) - cumulate
+#' @param l2_v_l Memory initialization (Last block) - cumulate
+#' @param ig indices for chunking
+#' @param z indices vector
+#' @param w indices vector
+#' @param G indices matrix
+#' @param t indices vector
+#' @param b1_eta list of indices sparsity 
+#' @param b2 list of indices sparsity 
+#' @param b3 list of indices sparsity 
+#' @param ib1_eta vector of indices sparsity 
+#' @param ib3 vector of indices sparsity 
+#' @param l2_el access to l2 elements (accounting for sparsity and blocks)
+#' @param l2_el2 access to l2 elements to cumulate
+#' @export
+NULL
+
+d2_beta <- function(X, eta, y, jj, K, lbb, l2, l2_v, l2_l, l2_v_l, ig, z, w, G, t, b1_eta, b1, b2, b3, ib1_eta, ib3, l2_el, l2_el2) {
+    .Call(`_covmodUK_d2_beta`, X, eta, y, jj, K, lbb, l2, l2_v, l2_l, l2_v_l, ig, z, w, G, t, b1_eta, b1, b2, b3, ib1_eta, ib3, l2_el, l2_el2)
+}
+
+#' Hessian mcd for fitting
+#'
+#' @param eta Linear predictor (n x (d + dx(d+1)/2) matrix).
+#' @param y Outcome (n x d matrix).
+#' @param d2l Memory initialization (first B-1 blocks)
+#' @param d2l_v Memory initialization (Last block)
+#' @param z indices vector
+#' @param w indices vector
+#' @param G indices matrix
+#' @param t indices vector
+#' @param b1_eta list of indices sparsity 
+#' @param b3 list of indices sparsity 
+#' @param ib1_eta vector of indices sparsity 
+#' @param ib3 vector of indices sparsity 
+#' @export
+NULL
+
+d2_mcd_eta <- function(eta, y, d2l, d2l_v, z, w, G, t, b1_eta, b3, ib1_eta, ib3) {
+    .Call(`_covmodUK_d2_mcd_eta`, eta, y, d2l, d2l_v, z, w, G, t, b1_eta, b3, ib1_eta, ib3)
+}
+
+#' Indices z,w,G,t
+#'
+#' @param d dimension
+#' @param z take z
+#' @param w take w
+#' @param G take G
+#' @param t take t
+#' @export
+NULL
+
+idx_zwGt <- function(d, z, w, G, t) {
+    .Call(`_covmodUK_idx_zwGt`, d, z, w, G, t)
 }
 
 jacobian_mcd <- function(eta, res, d, S_row, S_col, rc_idx_s, rc_idx_t, cor_flag) {

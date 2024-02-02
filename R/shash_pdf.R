@@ -1,4 +1,4 @@
-#' CDF of shash distribution
+#' pdf of shash distribution
 #'
 #' @description XXX
 #' @param X XXX

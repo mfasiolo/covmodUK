@@ -2,7 +2,7 @@
 % Please edit documentation in R/shash_pdf.R
 \name{shash_pdf}
 \alias{shash_pdf}
-\title{CDF of shash distribution}
+\title{pdf of shash distribution}
 \usage{
 shash_pdf(y, eta, log)
 }

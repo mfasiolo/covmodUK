@@ -4,7 +4,7 @@
 \alias{get_final_fits}
 \title{Fit all MVN GAM on all data}
 \usage{
-get_final_fits(nstop_all, data, ncores)
+get_final_fits(nstop_all, data, ncores, files)
 }
 \arguments{
 \item{theta}{B}

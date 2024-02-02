@@ -4,12 +4,10 @@
 \alias{formula_mcd}
 \title{Building formula for the covariance model}
 \usage{
-formula_mcd(data_boost, res, stop_elem)
+formula_mcd(data_boost, stop_elem)
 }
 \arguments{
 \item{data_boost}{The gradient boosting object}
-
-\item{res}{The summary of the gradient boosting}
 
 \item{stop_elem}{The number of elements considered for modelling purposes}
 }

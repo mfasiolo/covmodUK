@@ -9,7 +9,7 @@
 #' @export
 #' 
 boosting_step <- function(data, data_v, effects, 
-                          constraints, nstep, rate, diagonal, ncores, ncv = NULL, verbose = FALSE){
+                          constraints, nstep, rate, diagonal, ncores, ncv, old_fit = NULL, verbose = FALSE){
   
   out <- boost_order(y = as.matrix(data[ , 1:14]), 
                      X =  data,
@@ -18,6 +18,7 @@ boosting_step <- function(data, data_v, effects,
                      effects = effects,
                      constraints = constraints, nstep = nstep, rate = rate,
                      diagonal = diagonal,
+                     old_fit = old_fit,
                      ncores = ncores, verbose = verbose)
   
   ndat <- nrow(data_v)
@@ -26,20 +27,31 @@ boosting_step <- function(data, data_v, effects,
   eff_seq <- list("index" = sapply(out$idx, function(x) x[1,1]))
   eff_seq$name <- out$effects[sapply(out$idx, function(x) x[1,2])]
   
+  cv_stuff <- NULL
+  if( !is.null(old_fit) ){
+    cv_stuff <- list("eta" = old_fit$cv_eta, "eta_v" = old_fit$cv_eta_v)
+  }
+  
+  ncores <- min(c(ncv, ncores))
+  
   cl <- makePSOCKcluster(ncores)
   setDefaultCluster(cl)
   clusterExport(NULL, c("data", "data_v", "effects", "sets", "eff_seq", "constraints", "nstep", 
-                        "rate", "diagonal"), envir = environment())
+                        "rate", "diagonal", "cv_stuff"), envir = environment())
   clusterEvalQ(NULL, {
     library(covmodUK)
   })
   
-  ll_v <- parLapply(NULL, 1:ncv, function(ii){
+  cv_runs <- parLapply(NULL, 1:ncv, function(ii){
     y <- as.matrix(data[ , 1:14])
     X <- data
     if(ii > 1){
       y <- rbind(y, as.matrix(data_v[sets[1]:sets[ii], 1:14]))
       X <- rbind(X, data_v[sets[1]:sets[ii], ])
+    }
+    my_old_fit <- NULL
+    if(!is.null(cv_stuff)){
+      my_old_fit <- list("eta" = cv_stuff$eta[[ii]], "eta_v" = cv_stuff$eta_v[[ii]])
     }
     res <- boost_order(
       y = y, 
@@ -49,15 +61,25 @@ boosting_step <- function(data, data_v, effects,
       effects = effects,
       constraints = constraints, nstep = nstep, rate = rate,
       diagonal = diagonal,
-      ncores = 1, eff_seq = eff_seq, verbose = FALSE)$ll_v
-    return(unlist(res))
+      ncores = 1, eff_seq = eff_seq, old_fit = my_old_fit, verbose = FALSE)
+    return(res)
   })
   
-  stopCluster(NULL)
+  stopCluster(cl)
   rm(cl)
+
+  out$ll_v <- Reduce("+", lapply(cv_runs, function(x) unlist(x$ll_v)))
   
-  out$ll_v <- Reduce("+", ll_v)
+  out$cv_eta <- lapply(cv_runs, "[[", "eta")
+  out$cv_eta_v <- lapply(cv_runs, "[[", "eta_v")
   
+  if( !is.null(old_fit) ){
+   out$ll_v <- c(old_fit$ll_v, out$ll_v)
+   out$idx <- c(old_fit$idx, out$idx)
+   out$dll <- c(old_fit$dll, out$dll)
+   out$nstep <- old_fit$nstep + nstep
+  }
+
   return( out )
   
 }

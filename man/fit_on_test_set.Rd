@@ -4,7 +4,7 @@
 \alias{fit_on_test_set}
 \title{Fit MVN GAM on test set}
 \usage{
-fit_on_test_set(data_boost, nstop, data, start, ncv, ncores)
+fit_on_test_set(data_boost, nstop, dat, start, ncv, ncores)
 }
 \arguments{
 \item{theta}{B}

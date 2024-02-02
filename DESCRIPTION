@@ -13,14 +13,15 @@ Depends:
     parallel, 
     scoringRules, 
     mvnfast,
-    stringr
+    stringr, 
+    mgcViz, 
+    qgam
 Imports:
     dplyr, 
     ggplot2, 
     Matrix,
     fields, 
     Rcpp(>= 1.0.6), 
-    stats, 
-    copula
+    stats
 LinkingTo: Rcpp, RcppArmadillo
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3

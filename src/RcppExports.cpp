@@ -24,6 +24,44 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// d1_beta
+double d1_beta(arma::mat& X, arma::mat& eta, arma::mat& y, Rcpp::List& jj, uint32_t& K, arma::vec& lb, arma::mat& l1, arma::mat& l1_l, arma::uvec& ig, arma::vec& z, arma::vec& w, arma::mat& Gm);
+RcppExport SEXP _covmodUK_d1_beta(SEXP XSEXP, SEXP etaSEXP, SEXP ySEXP, SEXP jjSEXP, SEXP KSEXP, SEXP lbSEXP, SEXP l1SEXP, SEXP l1_lSEXP, SEXP igSEXP, SEXP zSEXP, SEXP wSEXP, SEXP GmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type jj(jjSEXP);
+    Rcpp::traits::input_parameter< uint32_t& >::type K(KSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type lb(lbSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type l1(l1SEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type l1_l(l1_lSEXP);
+    Rcpp::traits::input_parameter< arma::uvec& >::type ig(igSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type Gm(GmSEXP);
+    rcpp_result_gen = Rcpp::wrap(d1_beta(X, eta, y, jj, K, lb, l1, l1_l, ig, z, w, Gm));
+    return rcpp_result_gen;
+END_RCPP
+}
+// d1_mcd_eta
+double d1_mcd_eta(const arma::mat& eta, const arma::mat& y, arma::mat& d1l, arma::vec& z, arma::vec& w, arma::mat& Gm);
+RcppExport SEXP _covmodUK_d1_mcd_eta(SEXP etaSEXP, SEXP ySEXP, SEXP d1lSEXP, SEXP zSEXP, SEXP wSEXP, SEXP GmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type d1l(d1lSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type Gm(GmSEXP);
+    rcpp_result_gen = Rcpp::wrap(d1_mcd_eta(eta, y, d1l, z, w, Gm));
+    return rcpp_result_gen;
+END_RCPP
+}
 // d2_mcd
 double d2_mcd(NumericMatrix& eta, NumericMatrix& y, NumericMatrix& res);
 RcppExport SEXP _covmodUK_d2_mcd(SEXP etaSEXP, SEXP ySEXP, SEXP resSEXP) {
@@ -34,6 +72,76 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericMatrix& >::type y(ySEXP);
     Rcpp::traits::input_parameter< NumericMatrix& >::type res(resSEXP);
     rcpp_result_gen = Rcpp::wrap(d2_mcd(eta, y, res));
+    return rcpp_result_gen;
+END_RCPP
+}
+// d2_beta
+double d2_beta(arma::mat& X, arma::mat& eta, arma::mat& y, Rcpp::List& jj, uint32_t& K, arma::mat& lbb, arma::mat& l2, arma::vec& l2_v, arma::mat& l2_l, arma::vec& l2_v_l, arma::uvec& ig, arma::vec& z, arma::vec& w, arma::mat& G, arma::vec& t, Rcpp::List& b1_eta, Rcpp::List& b1, Rcpp::List& b2, Rcpp::List& b3, arma::vec& ib1_eta, arma::vec& ib3, arma::vec& l2_el, arma::vec& l2_el2);
+RcppExport SEXP _covmodUK_d2_beta(SEXP XSEXP, SEXP etaSEXP, SEXP ySEXP, SEXP jjSEXP, SEXP KSEXP, SEXP lbbSEXP, SEXP l2SEXP, SEXP l2_vSEXP, SEXP l2_lSEXP, SEXP l2_v_lSEXP, SEXP igSEXP, SEXP zSEXP, SEXP wSEXP, SEXP GSEXP, SEXP tSEXP, SEXP b1_etaSEXP, SEXP b1SEXP, SEXP b2SEXP, SEXP b3SEXP, SEXP ib1_etaSEXP, SEXP ib3SEXP, SEXP l2_elSEXP, SEXP l2_el2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type jj(jjSEXP);
+    Rcpp::traits::input_parameter< uint32_t& >::type K(KSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type lbb(lbbSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type l2(l2SEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type l2_v(l2_vSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type l2_l(l2_lSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type l2_v_l(l2_v_lSEXP);
+    Rcpp::traits::input_parameter< arma::uvec& >::type ig(igSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type t(tSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type b1_eta(b1_etaSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type b1(b1SEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type b2(b2SEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type b3(b3SEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type ib1_eta(ib1_etaSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type ib3(ib3SEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type l2_el(l2_elSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type l2_el2(l2_el2SEXP);
+    rcpp_result_gen = Rcpp::wrap(d2_beta(X, eta, y, jj, K, lbb, l2, l2_v, l2_l, l2_v_l, ig, z, w, G, t, b1_eta, b1, b2, b3, ib1_eta, ib3, l2_el, l2_el2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// d2_mcd_eta
+double d2_mcd_eta(const arma::mat& eta, const arma::mat& y, arma::mat& d2l, arma::vec& d2l_v, arma::vec& z, arma::vec& w, arma::mat& G, arma::vec& t, Rcpp::List& b1_eta, Rcpp::List& b3, arma::vec& ib1_eta, arma::vec& ib3);
+RcppExport SEXP _covmodUK_d2_mcd_eta(SEXP etaSEXP, SEXP ySEXP, SEXP d2lSEXP, SEXP d2l_vSEXP, SEXP zSEXP, SEXP wSEXP, SEXP GSEXP, SEXP tSEXP, SEXP b1_etaSEXP, SEXP b3SEXP, SEXP ib1_etaSEXP, SEXP ib3SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type d2l(d2lSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type d2l_v(d2l_vSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type t(tSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type b1_eta(b1_etaSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List& >::type b3(b3SEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type ib1_eta(ib1_etaSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type ib3(ib3SEXP);
+    rcpp_result_gen = Rcpp::wrap(d2_mcd_eta(eta, y, d2l, d2l_v, z, w, G, t, b1_eta, b3, ib1_eta, ib3));
+    return rcpp_result_gen;
+END_RCPP
+}
+// idx_zwGt
+double idx_zwGt(uint32_t d, IntegerVector& z, IntegerVector& w, IntegerMatrix& G, IntegerVector& t);
+RcppExport SEXP _covmodUK_idx_zwGt(SEXP dSEXP, SEXP zSEXP, SEXP wSEXP, SEXP GSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< uint32_t >::type d(dSEXP);
+    Rcpp::traits::input_parameter< IntegerVector& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< IntegerVector& >::type w(wSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< IntegerVector& >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(idx_zwGt(d, z, w, G, t));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -155,7 +263,12 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_covmodUK_d1_mcd", (DL_FUNC) &_covmodUK_d1_mcd, 3},
+    {"_covmodUK_d1_beta", (DL_FUNC) &_covmodUK_d1_beta, 12},
+    {"_covmodUK_d1_mcd_eta", (DL_FUNC) &_covmodUK_d1_mcd_eta, 6},
     {"_covmodUK_d2_mcd", (DL_FUNC) &_covmodUK_d2_mcd, 3},
+    {"_covmodUK_d2_beta", (DL_FUNC) &_covmodUK_d2_beta, 23},
+    {"_covmodUK_d2_mcd_eta", (DL_FUNC) &_covmodUK_d2_mcd_eta, 12},
+    {"_covmodUK_idx_zwGt", (DL_FUNC) &_covmodUK_idx_zwGt, 5},
     {"_covmodUK_jacobian_mcd", (DL_FUNC) &_covmodUK_jacobian_mcd, 8},
     {"_covmodUK_ll_mcd", (DL_FUNC) &_covmodUK_ll_mcd, 2},
     {"_covmodUK_lt_inversion", (DL_FUNC) &_covmodUK_lt_inversion, 1},

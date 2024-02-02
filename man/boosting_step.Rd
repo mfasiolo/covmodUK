@@ -13,7 +13,8 @@ boosting_step(
   rate,
   diagonal,
   ncores,
-  ncv = NULL,
+  ncv,
+  old_fit = NULL,
   verbose = FALSE
 )
 }

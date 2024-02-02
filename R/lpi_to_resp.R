@@ -10,19 +10,19 @@
 #' 
 lpi_to_resp <- function(lpi, d){
   n <- nrow(lpi)
-  mean_resp<- lpi[,1:d]
+  mean_resp<- lpi[,1:d,drop=FALSE]
   cov_resp <- matrix(0, n, d*(d+1)/2)
   pred_resp <- matrix(0, n, d + d*(d+1)/2)
   logD2 <- matrix(0,d,d)
   T  <- matrix(0,d,d)
   Sigma <- matrix(0,d,d)
   for(i in 1:n){
-    diag(logD2) <- lpi[i,(d+1):(2*d)]
+    diag(logD2) <- lpi[i,(d+1):(2*d),drop=FALSE]
     diag(T) <- 1
     count <- 2*d+1
     for(j in 2:d){
       for(k in 1:(j-1)){
-        T[j,k] <- lpi[i,count]
+        T[j,k] <- lpi[i,count,drop=FALSE]
         count <- count +1
       }
     }

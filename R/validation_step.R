@@ -8,7 +8,7 @@
 #' @details This function is meant for internal use only.
 #' @export
 #' 
-validation_step <- function(res, data, start, nstop, ncv, ncores){
+validation_step <- function(data_boost, dat, start, nstop, ncv, ncores){
   
   mean_formula_int <- list(res_P ~ 1,res_N ~ 1,res_F ~ 1,res_M ~ 1,res_G ~ 1,res_D ~ 1,res_K ~ 1,
                            res_E ~ 1,res_B ~ 1,res_A ~ 1,res_C ~ 1,res_J ~ 1,res_H ~ 1,res_L ~ 1)
@@ -20,24 +20,25 @@ validation_step <- function(res, data, start, nstop, ncv, ncores){
                                         }))
   
   d <- length(mean_formula_int)
-  
-  Theta_formula_int <- list()
-  for(ii in 1:(d*(d + 1)/2)){
-    Theta_formula_int[[ii]] <- as.formula("~ 1")
-  }
-  
-  ndat <- nrow(data)
+
+  ndat <- nrow(dat)
   sets <- floor(seq( start, ndat, length.out = ncv+1) )
   
-  nstop <- pmin(nstop, nrow(res))
+  cl <- makePSOCKcluster(ncores)
+  setDefaultCluster(cl)
+  clusterExport(NULL, c("dat", "sets", "nstop", "data_boost",  
+                        "mean_formula_int", "y_var_nam"), envir = environment())
+  clusterEvalQ(NULL, {
+    library(covmodUK)
+  })
   
-  nstop_cross <- mclapply(1:(length(sets)-1), function(ii){
-    train <- residuals_data[1:sets[ii], ]
-    test <- residuals_data[(sets[ii]+1):sets[ii+1], ]
+  my_fun_ahfh <- function(ii){
+    train <- dat[1:sets[ii], ]
+    test <- dat[(sets[ii]+1):sets[ii+1], ]
     
     test_pred <- lapply(nstop, function(ns){
       
-      theta_formula <- formula_mcd(data_boost, res, stop_elem = ns)
+      theta_formula <- formula_mcd(data_boost, stop_elem = ns)
       theta_formula <- lapply(theta_formula,
                               function(x)
                                 as.formula(paste(gsub(", sp = 0", '', x, fixed = TRUE), collapse = " ")))
@@ -55,8 +56,13 @@ validation_step <- function(res, data, start, nstop, ncv, ncores){
     })
     
     return( test_pred )
-  }, mc.cores = ncores)
+  }
+  environment(my_fun_ahfh) <- .GlobalEnv
   
+  nstop_cross <-  parLapply(NULL, 1:(length(sets)-1), my_fun_ahfh)
+  
+  stopCluster(cl)
+  rm(cl)
   
   return(nstop_cross)
 }
