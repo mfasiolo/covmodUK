@@ -18,8 +18,6 @@
 #' @importFrom stats as.formula
 #' @importFrom stats cov
 #'
-#' @examples
-#'
 boost_order <- function(y, X,
                         effects, constraints,
                         y_v, X_v,

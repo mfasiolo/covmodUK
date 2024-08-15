@@ -1,13 +1,13 @@
 ##########################
-#' Get performance scores
+#' Get performance scores for MVN GAMs on test set
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
+#' @param x a matrix of predictions from the MVN GAM
+#' @param d the dimension of the response vector
+#' @param nsim the number of simulation use to compute (e.g.) the CRPS loss
+#' @param ncores the number of cores
+#' @param A a matrix used to specify the linear combination of regions we are looking at
+#' @return A list of performance scores.
 #' @export
-#' @importFrom Matrix rankMatrix
-#' @details This function is meant for internal use only.
 #' 
 get_scores <- function(x, d, nsim, ncores, A){
   

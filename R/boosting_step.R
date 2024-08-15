@@ -1,11 +1,18 @@
 ##########################
-#' Boosting ordering
+#' Order effects by gradient boosting
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param data training data
+#' @param data_v validation data
+#' @param effect list of effects
+#' @param constraints list of constraints
+#' @param nstep number of boosting steps
+#' @param rate learning rate
+#' @param diagonal if TRUE only diagonal of MCD is modelled
+#' @param ncores number of parallel thread to use
+#' @param ncv number of fold for cross-validation
+#' @param old_fit can be use to start boosting from an old boosting run
+#' @param verbose print information as we boost?
+#' @return A list containing information on the effects and their importance
 #' @export
 #' 
 boosting_step <- function(data, data_v, effects, 

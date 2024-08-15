@@ -1,11 +1,9 @@
 #'
 #' Function for building new GAMLSS families
 #' 
-#' @description XXX.
-#' @param np XXX.
-#' @name build_GAMLSS
-#' @rdname build_GAMLSS
-#' @export build_GAMLSS
+#' @param o a bundled objects, such as bundle_GPD
+#' @return a family that can be used with mgcv::gam for fitting
+#' @export 
 #'
 build_GAMLSS <- function(o){
   

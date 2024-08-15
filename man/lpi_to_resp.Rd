@@ -2,19 +2,18 @@
 % Please edit documentation in R/lpi_to_resp.R
 \name{lpi_to_resp}
 \alias{lpi_to_resp}
-\title{Get covariance matrix from vector}
+\title{Convert linear predictors (on MCD scale) to covariance matrix}
 \usage{
 lpi_to_resp(lpi, d)
 }
 \arguments{
-\item{theta}{B}
+\item{lpi}{a matrix of linear predictors}
+
+\item{d}{the dimension of the response vector}
 }
 \value{
-C
+a matrix with means and covariances on each row
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Convert linear predictors (on MCD scale) to covariance matrix
 }

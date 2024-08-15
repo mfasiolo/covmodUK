@@ -2,19 +2,26 @@
 % Please edit documentation in R/fit_on_test_set.R
 \name{fit_on_test_set}
 \alias{fit_on_test_set}
-\title{Fit MVN GAM on test set}
+\title{Fit an MVN GAM on UK test set}
 \usage{
 fit_on_test_set(data_boost, nstop, dat, start, ncv, ncores)
 }
 \arguments{
-\item{theta}{B}
+\item{data_boost}{the output of boost_order()}
+
+\item{nstop}{the number of effects to use in the MVN model}
+
+\item{dat}{the data on which the models is fitted}
+
+\item{start}{the start of the testing set}
+
+\item{ncores}{the number of cores on which to parallelise the computation}
+
+\item{nvc}{the number of cutting points to use (rolling forecasts)}
 }
 \value{
-C
+A list containing the out-of-sample forecasts and demand data
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Fit an MVN GAM on UK test set
 }

@@ -5,10 +5,9 @@
 #' @param stop_elem The number of elements considered for modelling purposes
 #'
 #' @return The formula (a list) for the covariance model
+#' @noRd
 #' @export
-#' @importFrom stats as.formula
-#'
-#' @examples
+
 #'
 formula_mcd <- function(data_boost, stop_elem){
   res <- boost_eff(data_boost)

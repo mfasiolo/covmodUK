@@ -1,11 +1,11 @@
 ##########################
-#' Fit all MVN GAM on all data
-#' 
-#' @description A
+#' Fit all MVN GAMs on all the available UK data
 #'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param nstop_all a vector containing the number of effects to use for each GAM
+#' @param data the data on which the models are fitted
+#' @param ncores the number of cores
+#' @param file the paths to the files containing the output of boost_order
+#' @return A list of fitted GAM models.
 #' @export
 #' 
 get_final_fits <- function(nstop_all, data, ncores, files){

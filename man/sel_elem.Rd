@@ -15,3 +15,7 @@ The index selected
 \description{
 Select the prediction element
 }
+\examples{
+idx <- sel_elem(4)
+idx(3,1)
+}

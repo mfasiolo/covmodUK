@@ -9,7 +9,7 @@ mvn_mcd(d = 2, nb = 1)
 \arguments{
 \item{d}{dimension of the outcome}
 
-\item{nb}{number of chunkings}
+\item{nb}{number of chunks}
 }
 \value{
 family

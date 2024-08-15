@@ -1,12 +1,14 @@
-#' QF of shash distribution
+#' Quantile function of the shash distribution
 #'
-#' @description XXX
-#' @param X XXX
+#' @param p the probability level in (0, 1)
+#' @param mu a matrix of shash parameters
+#' @param wt a vector of weights
+#' @param scale the scale parameter (ignored here)
+#' @param logp if TRUE then p is log(p)
 #'
-#' @return XXX
+#' @return a vector of quantiles
 #' @export
 #'
-#' @examples
 shash_qf <- function(p, mu, wt, scale, logp) {
   mu <- as.matrix(mu)
   if(ncol(mu)==1){ mu <- t(mu) }

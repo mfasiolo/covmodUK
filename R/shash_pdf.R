@@ -4,9 +4,9 @@
 #' @param X XXX
 #'
 #' @return XXX
+#' @noRd
 #' @export
 #'
-#' @examples
 shash_pdf <- function(y, eta, log){
   .log1pexp <- function(x)
   {

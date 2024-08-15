@@ -1,12 +1,13 @@
 ##########################
-#' Get performance scores
+#' Get performance scores for the copula-based models
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
+#' @param fit_lss the estimates provided by the marginal GAMLSS models 
+#' @param nsim the number of simulation use to compute (e.g.) the CRPS loss
+#' @param ncores the number of cores
+#' @param A a matrix used to specify the linear combination of regions we are looking at
+#' @param indep if TRUE then the regions are assumed to be independent under the model
+#' @return A list of performance scores.
 #' @export
-#' @details This function is meant for internal use only.
 #' 
 get_scores_copula <- function(fit_lss, nsim, ncores, A, indep = FALSE){
   

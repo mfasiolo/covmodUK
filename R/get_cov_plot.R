@@ -1,11 +1,11 @@
 ##########################
-#' Plot covariance matrices as a network
+#' Plot covariance matrices as a graph
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param indexes the index of the observations we want to plot 
+#' @param CORRS a list of correlation matrices, one for each observation
+#' @param DIAG a list of (re-scaled) marginal variances
+#' @param A a matrix used to specify the linear combination of regions we are looking at
+#' @return A list of ggplot2 objects
 #' @export
 #' 
 get_cov_plot <- function(indexes, CORRS, DIAG, A){

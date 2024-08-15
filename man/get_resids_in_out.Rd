@@ -7,14 +7,15 @@
 get_resids_in_out(mod, final, logp)
 }
 \arguments{
-\item{theta}{B}
+\item{mod}{The output of the fitted GAMLSS models}
+
+\item{final}{Same as above but for the models fitted to the whole data}
+
+\item{logp}{if TRUE the uniform residuals are on log scale}
 }
 \value{
-C
+A list of in-sample and out-of-sample residuals
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Get uniform residuals from GAMLSS models on test and training sets
 }

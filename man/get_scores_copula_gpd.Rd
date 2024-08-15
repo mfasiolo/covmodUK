@@ -16,14 +16,25 @@ get_scores_copula_gpd(
 )
 }
 \arguments{
-\item{theta}{B}
+\item{fit_shash}{the estimates provided by the marginal GAMLSS models}
+
+\item{fit_gpd}{the estimates provided by the marginal GPD models}
+
+\item{sets}{the splitting points for the test set}
+
+\item{nsim}{the number of simulation use to compute (e.g.) the CRPS loss}
+
+\item{ncores}{the number of cores}
+
+\item{A}{a matrix used to specify the linear combination of regions we are looking}
+
+\item{dyn_copula}{if TRUE the copula is assumed to be dynamic (experimental)}
+
+\item{indep}{if TRUE then the regions are assumed to be independent under the model}
 }
 \value{
-C
+A list of performance scores.
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Get performance scores from shash+gpd+copula model
 }

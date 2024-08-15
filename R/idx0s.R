@@ -10,7 +10,6 @@
 #' @return list of zero elements for each row
 #' @export
 #'
-#' @examples
 index0s <- function(no_eta, z, w, Gmat, t){
   idx_jk_no0 <- list()
   d <- -3/2 + sqrt(9/4 + 2 * no_eta)

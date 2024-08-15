@@ -4,7 +4,7 @@
 #' @description Extension of \code{mgcv::make.link} including additional links.
 #' @param link a character string indicating the link function to be used.
 #' @name makeLink
-#' @rdname makeLink
+#' @noRd
 #' @importFrom gsubfn strapplyc
 #' @export makeLink
 #'

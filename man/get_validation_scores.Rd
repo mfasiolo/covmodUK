@@ -2,19 +2,16 @@
 % Please edit documentation in R/get_validation_scores.R
 \name{get_validation_scores}
 \alias{get_validation_scores}
-\title{Get validation scores}
+\title{Get validation scores to choose number of effects}
 \usage{
 get_validation_scores(nstop_cross)
 }
 \arguments{
-\item{theta}{B}
+\item{nstop_cross}{The output of the validation_step() function}
 }
 \value{
-C
+A vector of out-of-sample log-likelihood values
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Get validation scores to choose number of effects
 }

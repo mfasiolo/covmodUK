@@ -2,7 +2,7 @@
 % Please edit documentation in R/boosting_step.R
 \name{boosting_step}
 \alias{boosting_step}
-\title{Boosting ordering}
+\title{Order effects by gradient boosting}
 \usage{
 boosting_step(
   data,
@@ -19,14 +19,31 @@ boosting_step(
 )
 }
 \arguments{
-\item{theta}{B}
+\item{data}{training data}
+
+\item{data_v}{validation data}
+
+\item{constraints}{list of constraints}
+
+\item{nstep}{number of boosting steps}
+
+\item{rate}{learning rate}
+
+\item{diagonal}{if TRUE only diagonal of MCD is modelled}
+
+\item{ncores}{number of parallel thread to use}
+
+\item{ncv}{number of fold for cross-validation}
+
+\item{old_fit}{can be use to start boosting from an old boosting run}
+
+\item{verbose}{print information as we boost?}
+
+\item{effect}{list of effects}
 }
 \value{
-C
+A list containing information on the effects and their importance
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Order effects by gradient boosting
 }

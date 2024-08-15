@@ -5,7 +5,6 @@
 #' @return The function returns the covariance matrix in matrix form
 #' @export
 #'
-#' @examples
 Sigma_mat <- function(pred_Sigma){
   n_el <- length(pred_Sigma)
   d <- (-1 + sqrt(1 + 8 * n_el))/2

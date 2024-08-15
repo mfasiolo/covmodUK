@@ -1,13 +1,9 @@
 #' Extract information from the boosting procedure
-#' @description This function allows to obtain a summary of the effects chosen by the boosting
 #'
-#' @param data_boost an object obtained by ...
+#' @param data_boost the output of the boosting_step() function
 #'
-#' @return The function
+#' @return A data.frame with information on the importance of each effect
 #' @export
-#' @importFrom stringr word
-#'
-#' @examples
 #'
 boost_eff <- function(data_boost){
   A <- l_mat(data_boost$d)

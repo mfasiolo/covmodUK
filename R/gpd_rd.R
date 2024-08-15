@@ -4,9 +4,9 @@
 #' @param X XXX
 #'
 #' @return XXX
+#' @noRd
 #' @export
 #'
-#' @examples
 gpd_rd <- function(mu, wt, scale)  {
   
   return( bundle_GPD$rd(mu, wt, scale)  )

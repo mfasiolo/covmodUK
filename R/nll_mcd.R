@@ -7,7 +7,6 @@
 #' @return The function returns the negative log-likelihood according to the MCD parameterization
 #' @export
 #'
-#' @examples
 nll_mcd <- function(eta, y){
   n <- nrow(y)
   d <- ncol(y)

@@ -4,9 +4,8 @@
 #' @param d The dimension of the outcome
 #'
 #' @return The initializing formula (a list) for the covariance model
+#' @noRd
 #' @export
-#'
-#' @examples
 #'
 formula_mcd_int <- function(d){
   Theta_formula_int <-  list()

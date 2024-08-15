@@ -4,7 +4,7 @@
 #' @description Extension of \code{mgcv::fix.family.link} including additional links.
 #' @param np XXX.
 #' @name fixFamilyLink
-#' @rdname fixFamilyLink
+#' @noRd
 #' @export fixFamilyLink
 #'
 fixFamilyLink <- function(fam){

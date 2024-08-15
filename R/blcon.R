@@ -1,6 +1,7 @@
 #' Base learner construction
 #' @description aaa
 #'
+#' @noRd
 #' @export
 ## Base learner constructor: takes a smooth and returns a base learner
 ## for it, seeking to make effective degrees of freedom edf + null.space.dim.

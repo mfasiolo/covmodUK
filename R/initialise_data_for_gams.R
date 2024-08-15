@@ -1,11 +1,9 @@
 ##########################
-#' Initialise data for fitting
-#' 
-#' @description A
+#' Initialise UK data for fitting
 #'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param dat the UK GSP group data
+#' @param d the dimension (14 in this case)
+#' @return the data in the right format
 #' @export
 #' 
 initialise_data_for_gams <- function(dat, d){

@@ -1,11 +1,9 @@
 ##########################
-#' Get covariance matrix from vector
+#' Convert linear predictors (on MCD scale) to covariance matrix
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param lpi a matrix of linear predictors
+#' @param d the dimension of the response vector
+#' @return a matrix with means and covariances on each row
 #' @export
 #' 
 lpi_to_resp <- function(lpi, d){

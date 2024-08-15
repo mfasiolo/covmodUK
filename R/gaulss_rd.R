@@ -4,9 +4,9 @@
 #' @param X XXX
 #'
 #' @return XXX
+#' @noRd
 #' @export
 #'
-#' @examples
 gaulss_rd <- function(mu, wt, scale)  {
   
   return( gaulss()$rd(mu, wt, scale)  )

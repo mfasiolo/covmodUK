@@ -2,15 +2,13 @@
 #'
 #' @description  Family function
 #' @param d dimension of the outcome
-#' @param nb number of chunkings
+#' @param nb number of chunks
 #'
 #' @return family
 #' @export
 #'
 #' @importFrom Rcpp evalCpp
 #'
-#' @examples
-
 mvn_mcd <- function(d = 2, nb = 1){
   #Multivariate model with covariance modelling via modified Cholesky decomposition
   if ( d < 2 ) stop("mvn_scm requires to or more dimensional data")

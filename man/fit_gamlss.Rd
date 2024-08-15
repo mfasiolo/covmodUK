@@ -2,16 +2,24 @@
 % Please edit documentation in R/fit_gamlss.R
 \name{fit_gamlss}
 \alias{fit_gamlss}
-\title{Fit a GAMLSS model to each margin}
+\title{Fit a GAMLSS model to each margin of UK demand data}
 \usage{
 fit_gamlss(fam, form, sets, dat, cl)
 }
 \arguments{
-\item{X}{XXX}
+\item{fam}{the distribution to be used to model the margins}
+
+\item{form}{a list of model formulas to be used for each region}
+
+\item{sets}{a vector determining the split between the training sets}
+
+\item{dat}{the data on which the models are fitted}
+
+\item{cl}{a cluster for parallel execution}
 }
 \value{
-XXX
+a list with the output of the marginal fits
 }
 \description{
-XXX
+Fit a GAMLSS model to each margin of UK demand data
 }

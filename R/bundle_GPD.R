@@ -1,33 +1,9 @@
 #'
 #' Ingredients for Generalized Pareto family
 #' 
-#' @description XXX.
 #' @name bundle_GPD
 #' @rdname bundle_GPD
 #' @export bundle_GPD
-#' @examples 
-#' library(gamFactory)
-#'
-#' # Simulate some data
-#' n <- 2000
-#' myDat <- data.frame(x = runif(n, -1, 1))
-#' myDat$y <-  rexp(n, 1 / (0.3 + abs(myDat$x)^2))
-#' plot(myDat)
-#' 
-#' # Create GPD family and fit it
-#' myGPD <- build_GAMLSS( bundle_GPD )
-#' fit <- gam(list(y ~ s(x), ~ s(x)), data = myDat, family = myGPD)
-#' plot(fit, pages = 1)
-#' 
-#' # Compare true (black) and estimated (red) quantiles 
-#' qu <- 0.95
-#' xseq <- seq(-1, 1, length.out = 1000)
-#' plot(myDat, col = "grey")
-#' lines(xseq, qexp(qu, 1 / (0.3 + abs(xseq)^2)), col = 2)
-#' lines(xseq, fit$family$qf(qu, 
-#'                           mu = predict(fit, newdata = data.frame(x = xseq), 
-#'                                        type = "response")), 
-#'       col = 3)
 #'
 bundle_GPD <- list(np = 2,
                   availableDeriv = 3,

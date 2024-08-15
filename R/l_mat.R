@@ -6,8 +6,6 @@
 #' @return A matrix with the labels of the uncostrained mcd elements
 #' @export
 #'
-#' @examples
-#'
 l_mat <- function(d){
   mat <- matrix(NA, d, d)
   for(i in 1:d){

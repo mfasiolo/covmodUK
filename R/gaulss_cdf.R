@@ -4,9 +4,9 @@
 #' @param X XXX
 #'
 #' @return XXX
+#' @noRd
 #' @export
 #'
-#' @examples
 gaulss_cdf <- function(q, mu, wt, scale, logp = FALSE) {
   pnorm(q, mean = mu[ , 1], sd = 1/mu[ , 2], log.p = logp)
 }

@@ -7,8 +7,8 @@
 #' @export
 #'
 #' @examples
-# idx <- sel_elem(4)
-# idx(3,1)
+#' idx <- sel_elem(4)
+#' idx(3,1)
 sel_elem <- function(d){
   pred_elem <- function(j,k){
 

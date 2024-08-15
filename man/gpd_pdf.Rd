@@ -2,16 +2,20 @@
 % Please edit documentation in R/gpd_pdf.R
 \name{gpd_pdf}
 \alias{gpd_pdf}
-\title{pdf of GPD distribution}
+\title{The pdf of the GPD distribution}
 \usage{
 gpd_pdf(y, eta, log)
 }
 \arguments{
-\item{X}{XXX}
+\item{y}{the data on which the pdf is evaluated}
+
+\item{eta}{matrix of linear predictors}
+
+\item{log}{if TRUE the log-pdf is returned}
 }
 \value{
-XXX
+the pdf corresponding to each y
 }
 \description{
-XXX
+The pdf of the GPD distribution
 }

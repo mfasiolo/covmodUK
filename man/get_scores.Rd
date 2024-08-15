@@ -2,19 +2,24 @@
 % Please edit documentation in R/get_score.R
 \name{get_scores}
 \alias{get_scores}
-\title{Get performance scores}
+\title{Get performance scores for MVN GAMs on test set}
 \usage{
 get_scores(x, d, nsim, ncores, A)
 }
 \arguments{
-\item{theta}{B}
+\item{x}{a matrix of predictions from the MVN GAM}
+
+\item{d}{the dimension of the response vector}
+
+\item{nsim}{the number of simulation use to compute (e.g.) the CRPS loss}
+
+\item{ncores}{the number of cores}
+
+\item{A}{a matrix used to specify the linear combination of regions we are looking at}
 }
 \value{
-C
+A list of performance scores.
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Get performance scores for MVN GAMs on test set
 }

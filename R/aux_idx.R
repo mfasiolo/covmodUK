@@ -8,7 +8,6 @@
 #' @return indices for blocks
 #' @export
 #'
-#' @examples
 
 aux_idx <- function(jj, idx_jk, no_eta){
   ll_jjx <- unlist(lapply(1 : length(jj), function(x) length(jj[[x]])))

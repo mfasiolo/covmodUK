@@ -6,7 +6,7 @@
 #' @param theta B
 #' @return C
 #' @export
-#' @details This function is meant for internal use only.
+#' @noRd
 #'
 d_gau_copula <- function(logu, R, log = TRUE){
   logu <- as.matrix(logu)

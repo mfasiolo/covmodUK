@@ -7,11 +7,15 @@
 postprocess_gpd_fits(fit_s, fit_g, only_shash = FALSE)
 }
 \arguments{
-\item{X}{XXX}
+\item{fit_s}{a list of fitted marginal shash models}
+
+\item{fit_g}{a list of fitted marginl gam models}
+
+\item{only_shash}{if TRUE the GPD distribution will not be used}
 }
 \value{
-XXX
+A list containing the fit obtained by a shash+gpd model
 }
 \description{
-XXX
+Post process marginal GPD fits
 }

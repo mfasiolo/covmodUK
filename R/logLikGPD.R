@@ -4,7 +4,7 @@
 #' @description XXX.
 #' @param np XXX.
 #' @name logLikGPD
-#' @rdname logLikGPD
+#' @noRd
 #' @export logLikGPD
 #' @examples
 #' library(gamFactory)

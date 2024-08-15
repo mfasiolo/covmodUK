@@ -6,8 +6,6 @@
 #' @return A matrix with the unconstrained elements of the modified Cholesky decomposition of the precision matrix
 #' @export
 #'
-#' @examples
-
 mcd <- function(X){
  res <- mcd_decomposition(X)
  return(res)

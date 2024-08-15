@@ -2,19 +2,18 @@
 % Please edit documentation in R/initialise_data_for_gams.R
 \name{initialise_data_for_gams}
 \alias{initialise_data_for_gams}
-\title{Initialise data for fitting}
+\title{Initialise UK data for fitting}
 \usage{
 initialise_data_for_gams(dat, d)
 }
 \arguments{
-\item{theta}{B}
+\item{dat}{the UK GSP group data}
+
+\item{d}{the dimension (14 in this case)}
 }
 \value{
-C
+the data in the right format
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Initialise UK data for fitting
 }

@@ -1,11 +1,10 @@
 ##########################
-#' Get effects and constraints
+#' Creates list of effects for gradient boosting 
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param version what type of model are we using "c", "c+w" etc
+#' @param allNs vector of names of GSP groups
+#' @param diagonal if TRUE the effects will be used to model only diagonal of MCD
+#' @return List of effects to be passed to boosting_step() function
 #' @export
 #' 
 get_effects <- function(version, allNs, diagonal){

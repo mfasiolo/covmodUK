@@ -7,8 +7,11 @@
 build_GAMLSS(o)
 }
 \arguments{
-\item{np}{XXX.}
+\item{o}{a bundled objects, such as bundle_GPD}
+}
+\value{
+a family that can be used with mgcv::gam for fitting
 }
 \description{
-XXX.
+Function for building new GAMLSS families
 }

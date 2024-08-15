@@ -1,4 +1,4 @@
-#' Matrice G
+#' Matrix G
 #'
 #' @description The G matrix
 #' @param d The dimension of the outcome
@@ -6,8 +6,6 @@
 #' @return The G matrix
 #' @export
 #'
-#' @examples
-
 mat2vec <- function(d){
   G <- matrix(0, d, d)
   diag(G) <- 1:d

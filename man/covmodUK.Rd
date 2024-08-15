@@ -2,6 +2,7 @@
 % Please edit documentation in R/zzz.R
 \docType{package}
 \name{covmodUK}
+\alias{covmodUK-package}
 \alias{covmodUK}
 \title{mypackage: A package for computating the notorious bar statistic.}
 \description{

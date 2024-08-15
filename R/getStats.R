@@ -4,7 +4,7 @@
 #' @description XXX.
 #' @param np XXX.
 #' @name getStats
-#' @rdname getStats
+#' @noRd
 #' @export getStats
 #'
 getStats <- function(link, okLinks, np, nam){

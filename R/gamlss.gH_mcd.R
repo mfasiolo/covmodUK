@@ -28,12 +28,11 @@
 #' @param D matrix ...
 #'
 #' @return derivatives
+#' @noRd
 #' @export
 #'
 #' @importFrom Rcpp evalCpp
 #'
-#' @examples
-
 gamlss.gH_mcd <- function (X, jj, eta, y, w, z, t, Gm,
                            l1, l1_l, l2, l2_v, l2_l, l2_v_l, idx_b, idx_aux,
                            l3 = 0, i3 = 0,

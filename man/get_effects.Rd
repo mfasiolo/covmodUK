@@ -2,19 +2,20 @@
 % Please edit documentation in R/get_effects.R
 \name{get_effects}
 \alias{get_effects}
-\title{Get effects and constraints}
+\title{Creates list of effects for gradient boosting}
 \usage{
 get_effects(version, allNs, diagonal)
 }
 \arguments{
-\item{theta}{B}
+\item{version}{what type of model are we using "c", "c+w" etc}
+
+\item{allNs}{vector of names of GSP groups}
+
+\item{diagonal}{if TRUE the effects will be used to model only diagonal of MCD}
 }
 \value{
-C
+List of effects to be passed to boosting_step() function
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Creates list of effects for gradient boosting
 }

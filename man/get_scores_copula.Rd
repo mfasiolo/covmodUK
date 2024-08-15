@@ -2,19 +2,24 @@
 % Please edit documentation in R/get_scores_copula.R
 \name{get_scores_copula}
 \alias{get_scores_copula}
-\title{Get performance scores}
+\title{Get performance scores for the copula-based models}
 \usage{
 get_scores_copula(fit_lss, nsim, ncores, A, indep = FALSE)
 }
 \arguments{
-\item{theta}{B}
+\item{fit_lss}{the estimates provided by the marginal GAMLSS models}
+
+\item{nsim}{the number of simulation use to compute (e.g.) the CRPS loss}
+
+\item{ncores}{the number of cores}
+
+\item{A}{a matrix used to specify the linear combination of regions we are looking at}
+
+\item{indep}{if TRUE then the regions are assumed to be independent under the model}
 }
 \value{
-C
+A list of performance scores.
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Get performance scores for the copula-based models
 }

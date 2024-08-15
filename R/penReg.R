@@ -9,6 +9,7 @@
 #' @name penReg
 #' @rdname penReg
 #' @export penReg
+#' 
 penReg <- function(x,e,y) {
   ## Taken from Simon N. Wood (in mgcv it is "pen.reg")
   ## get coefficients of penalized regression of y on matrix x

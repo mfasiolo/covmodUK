@@ -2,16 +2,24 @@
 % Please edit documentation in R/shash_qf.R
 \name{shash_qf}
 \alias{shash_qf}
-\title{QF of shash distribution}
+\title{Quantile function of the shash distribution}
 \usage{
 shash_qf(p, mu, wt, scale, logp)
 }
 \arguments{
-\item{X}{XXX}
+\item{p}{the probability level in (0, 1)}
+
+\item{mu}{a matrix of shash parameters}
+
+\item{wt}{a vector of weights}
+
+\item{scale}{the scale parameter (ignored here)}
+
+\item{logp}{if TRUE then p is log(p)}
 }
 \value{
-XXX
+a vector of quantiles
 }
 \description{
-XXX
+Quantile function of the shash distribution
 }

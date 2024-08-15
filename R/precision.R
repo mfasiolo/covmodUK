@@ -4,9 +4,9 @@
 #' @param X A covariance matrix
 #'
 #' @return The precision matrix
+#' @noRd
 #' @export
 #'
-#' @examples
 inverse <- function(X){
  res <- precision(X)
  return(res)

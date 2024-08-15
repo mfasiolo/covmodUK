@@ -2,19 +2,22 @@
 % Please edit documentation in R/get_final_fits.R
 \name{get_final_fits}
 \alias{get_final_fits}
-\title{Fit all MVN GAM on all data}
+\title{Fit all MVN GAMs on all the available UK data}
 \usage{
 get_final_fits(nstop_all, data, ncores, files)
 }
 \arguments{
-\item{theta}{B}
+\item{nstop_all}{a vector containing the number of effects to use for each GAM}
+
+\item{data}{the data on which the models are fitted}
+
+\item{ncores}{the number of cores}
+
+\item{file}{the paths to the files containing the output of boost_order}
 }
 \value{
-C
+A list of fitted GAM models.
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Fit all MVN GAMs on all the available UK data
 }

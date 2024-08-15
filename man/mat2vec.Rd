@@ -2,7 +2,7 @@
 % Please edit documentation in R/G_mat.R
 \name{mat2vec}
 \alias{mat2vec}
-\title{Matrice G}
+\title{Matrix G}
 \usage{
 mat2vec(d)
 }

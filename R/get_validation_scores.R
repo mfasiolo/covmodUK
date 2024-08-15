@@ -1,11 +1,8 @@
 ##########################
-#' Get validation scores
+#' Get validation scores to choose number of effects
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param nstop_cross The output of the validation_step() function
+#' @return A vector of out-of-sample log-likelihood values
 #' @export
 #' 
 get_validation_scores <- function(nstop_cross){

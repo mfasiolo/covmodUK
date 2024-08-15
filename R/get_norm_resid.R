@@ -5,9 +5,9 @@
 #'  
 #' @param theta B
 #' @return C
+#' @noRd
 #' @export
 #' @importFrom Matrix rankMatrix
-#' @details This function is meant for internal use only.
 #' 
 get_norm_resid <- function(x, d){
   

@@ -2,19 +2,22 @@
 % Please edit documentation in R/get_cov_plot.R
 \name{get_cov_plot}
 \alias{get_cov_plot}
-\title{Plot covariance matrices as a network}
+\title{Plot covariance matrices as a graph}
 \usage{
 get_cov_plot(indexes, CORRS, DIAG, A)
 }
 \arguments{
-\item{theta}{B}
+\item{indexes}{the index of the observations we want to plot}
+
+\item{CORRS}{a list of correlation matrices, one for each observation}
+
+\item{DIAG}{a list of (re-scaled) marginal variances}
+
+\item{A}{a matrix used to specify the linear combination of regions we are looking at}
 }
 \value{
-C
+A list of ggplot2 objects
 }
 \description{
-A
-}
-\details{
-This function is meant for internal use only.
+Plot covariance matrices as a graph
 }

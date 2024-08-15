@@ -7,11 +7,11 @@
 boost_eff(data_boost)
 }
 \arguments{
-\item{data_boost}{an object obtained by ...}
+\item{data_boost}{the output of the boosting_step() function}
 }
 \value{
-The function
+A data.frame with information on the importance of each effect
 }
 \description{
-This function allows to obtain a summary of the effects chosen by the boosting
+Extract information from the boosting procedure
 }

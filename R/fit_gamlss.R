@@ -1,12 +1,13 @@
-#' Fit a GAMLSS model to each margin
+#' Fit a GAMLSS model to each margin of UK demand data
 #'
-#' @description XXX
-#' @param X XXX
-#'
-#' @return XXX
+#' @param fam the distribution to be used to model the margins
+#' @param form a list of model formulas to be used for each region 
+#' @param sets a vector determining the split between the training sets
+#' @param dat the data on which the models are fitted
+#' @param cl a cluster for parallel execution
+#' @return a list with the output of the marginal fits
 #' @export
 #'
-#' @examples
 fit_gamlss <- function(fam, form, sets, dat, cl){
   
   cdf <- get(paste0(fam, "_cdf"))

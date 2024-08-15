@@ -4,9 +4,9 @@
 #' @param X XXX
 #'
 #' @return XXX
+#' @noRd
 #' @export
 #'
-#' @examples
 gpd_qf <- function(p, mu, logp) {
   mu <- as.matrix(mu)
   if( ncol(mu) == 1 ){ mu <- t(mu) }

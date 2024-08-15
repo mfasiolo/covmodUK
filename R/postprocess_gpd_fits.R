@@ -1,12 +1,11 @@
 #' Post process marginal GPD fits
 #'
-#' @description XXX
-#' @param X XXX
-#'
-#' @return XXX
+#' @param fit_s a list of fitted marginal shash models
+#' @param fit_g a list of fitted marginl gam models
+#' @param only_shash if TRUE the GPD distribution will not be used
+#' @return A list containing the fit obtained by a shash+gpd model
 #' @export
 #'
-#' @examples
 postprocess_gpd_fits <- function(fit_s, fit_g, only_shash = FALSE){
   
   d <- length(fit_s[[1]])

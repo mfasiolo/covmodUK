@@ -1,6 +1,6 @@
 #' Prints bad effects 
-#' @description XXX
 #' @return C
+#' @noRd
 #' @export
 #'
 print_bad_effects <- function(data_boost, n){

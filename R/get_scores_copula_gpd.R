@@ -1,12 +1,17 @@
 ##########################
 #' Get performance scores from shash+gpd+copula model
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
+#' @param fit_shash the estimates provided by the marginal GAMLSS models 
+#' @param fit_gpd the estimates provided by the marginal GPD models 
+#' @param sets the splitting points for the test set
+#' @param nsim the number of simulation use to compute (e.g.) the CRPS loss
+#' @param ncores the number of cores
+#' @param A a matrix used to specify the linear combination of regions we are looking 
+#' @param dyn_copula if TRUE the copula is assumed to be dynamic (experimental)
+#' @param indep if TRUE then the regions are assumed to be independent under the model
+#' @return A list of performance scores.
 #' @export
-#' @details This function is meant for internal use only.
+#' 
 #' 
 get_scores_copula_gpd <- function(fit_shash, fit_gpd, sets, nsim, ncores, A, dyn_copula = NULL, indep = FALSE){
   

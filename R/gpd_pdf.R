@@ -1,12 +1,12 @@
-#' pdf of GPD distribution
+#' The pdf of the GPD distribution
 #'
-#' @description XXX
-#' @param X XXX
-#'
-#' @return XXX
+#' @param y the data on which the pdf is evaluated
+#' @param eta matrix of linear predictors
+#' @param log if TRUE the log-pdf is returned
+#' 
+#' @return the pdf corresponding to each y
 #' @export
 #'
-#' @examples
 gpd_pdf <- function(y, eta, log){
   if( is.vector(eta) ) { eta <- matrix(eta, nrow = 1) }
   phi <- eta[ , 1, drop = TRUE]

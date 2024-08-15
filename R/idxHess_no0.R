@@ -9,9 +9,6 @@
 #' @return indices for blocks
 #' @export
 #'
-#' @examples
-
-
 idxHess_no0 <- function(no_eta, z, w, param) {
   idx_jk_no0 <- list()
 

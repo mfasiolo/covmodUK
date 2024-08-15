@@ -1,13 +1,11 @@
 ##########################
 #' Get uniform residuals from GAMLSS models on test and training sets
-#' 
-#' @description A
 #'  
-#' @param theta B
-#' @return C
+#' @param mod The output of the fitted GAMLSS models
+#' @param final Same as above but for the models fitted to the whole data
+#' @param logp if TRUE the uniform residuals are on log scale
+#' @return A list of in-sample and out-of-sample residuals
 #' @export
-#' @importFrom Matrix rankMatrix
-#' @details This function is meant for internal use only.
 #' 
 get_resids_in_out <- function(mod, final, logp){
   # In sample residuals (train set)

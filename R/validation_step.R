@@ -1,11 +1,14 @@
 ##########################
-#' Validation for optimal number of effects
+#' Validation for to choose optimal number of effects
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param data_boost output of boosting_step() function
+#' @param dat data on which to do the validation
+#' @param start Start of validation
+#' @param nstop Sequence of number of effects on which to evaluate the performance
+#' @param ncv number of cross-validation folds
+#' @param ncores number of parallel threads
+#' @return A list containing information on the validation scores as a function of the number of effects
+#' 
 #' @export
 #' 
 validation_step <- function(data_boost, dat, start, nstop, ncv, ncores){

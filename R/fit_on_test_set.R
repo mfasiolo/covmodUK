@@ -1,11 +1,13 @@
 ##########################
-#' Fit MVN GAM on test set
+#' Fit an MVN GAM on UK test set
 #' 
-#' @description A
-#'  
-#' @param theta B
-#' @return C
-#' @details This function is meant for internal use only.
+#' @param data_boost the output of boost_order()
+#' @param nstop the number of effects to use in the MVN model
+#' @param dat the data on which the models is fitted
+#' @param start the start of the testing set
+#' @param nvc the number of cutting points to use (rolling forecasts)
+#' @param ncores the number of cores on which to parallelise the computation
+#' @return A list containing the out-of-sample forecasts and demand data
 #' @export
 #' 
 fit_on_test_set <- function(data_boost, nstop, dat, start, ncv, ncores){
